@@ -1,0 +1,2 @@
+# pgsql_collect_streaming_status
+postgresql采集流复制状态
