@@ -1,4 +1,4 @@
-# 自定义插件脚本，采集postgresql流复制状态实例
+# n9e自定义插件脚本，采集postgresql流复制状态实例
 
 postgresql采集流复制状态
 
