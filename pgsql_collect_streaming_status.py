@@ -7,21 +7,21 @@ import time
 
 items = []
 
-def collect_pg_streaming_stats():
+def collect_pg_streaming_status():
     item = {}
     item["metric"] = "proc.pg.streaming.status"
     item["tagsMap"] = {
         "srv": "postgresql",
         "project": "ydy"
     }
-    PG_STREAMING_INFO = subprocess.run(["/data/server/pgsql/bin/psql", "-h127.0.0.1", "-Upostgres", "-tc", \
+    pg_streaming_info = subprocess.run(["/data/server/pgsql/bin/psql", "-h127.0.0.1", "-Upostgres", "-tc", \
                                         "select * from pg_stat_wal_receiver;"], stdout=subprocess.PIPE)
     try:
-        PG_STREAMING_STATS = str(PG_STREAMING_INFO.stdout).split('|')[1].strip()
+        pg_streaming_status = str(pg_streaming_info.stdout).split('|')[1].strip()
     except:
         # IndexError: list index out of range
-        PG_STREAMING_STATS = None
-    if PG_STREAMING_STATS == "streaming":
+        pg_streaming_status = None
+    if pg_streaming_status == "streaming":
         item["value"] = 1
     else:
         item["value"] = 0
@@ -29,7 +29,7 @@ def collect_pg_streaming_stats():
 
 def main():
     timestamp = int(time.time())
-    collect_pg_streaming_stats()
+    collect_pg_streaming_status()
 
     for item in items:
         item["timestamp"] = timestamp
@@ -39,4 +39,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
